@@ -219,19 +219,45 @@ console.log(withdrawals);
 // console.log(balance);
 
 const balance = movements.reduce((acc, cur) => acc + cur, 0);
-console.log(balance);
 
 let balance2 = 0;
 for (const mov of movements) balance2 += mov;
-console.log(balance2);
 
 // Maximum value
 const max = movements.reduce((acc, mov) => {
-    if (acc > mov) return acc;
-    else return mov;
+    if (acc > mov)
+        return acc;
+    else
+        return mov;
 }, movements[0]);
 
-console.log(max);
 
+////////////////////////////////////////////////////////////////
+// Coding Challenge #2 (지문 강의 참조)
 
+const dogAge1 = [5, 2, 4, 1, 15, 8, 3];
+const dogAge2 = [16, 6, 10, 5, 6, 1, 4];
 
+// 나의 답변
+const myCalcAverageHumanAge = function (dogAges) {
+    const filteredHumanAges = dogAges.map((dogAge) => {
+        if (dogAge <= 2) {
+            return dogAge * 2;
+        } else if (dogAge > 2) {
+            return 16 + dogAge * 4;
+        }
+    })
+        .filter(humanAge => humanAge > 18)
+    const sumHumanAges = filteredHumanAges.reduce((acc, cur) => acc + cur, 0)
+    return sumHumanAges / filteredHumanAges.length;
+}
+console.log(myCalcAverageHumanAge(dogAge1))
+
+// 선생님의 답변
+const calcAverageHumanAge = function (ages) {
+    const humanAges = ages.map(age => age <= 2 ? 2 * age : 16 + age * 4);
+    const adults = humanAges.filter(age => age >= 18);
+    const average = adults.reduce((acc, age, i, arr) => acc + age / arr.length, 0);
+    return average;
+}
+console.log(calcAverageHumanAge(dogAge1))
