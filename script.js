@@ -86,6 +86,19 @@ const calcDisplayBalance = function (movements) {
 }
 calcDisplayBalance(account1.movements);
 
+const calcDisplaySummary = function (movements) {
+    const incomes = movements.filter(mov => mov > 0)
+        .reduce((acc, mov) => acc + mov, 0);
+    labelSumIn.textContent = `${incomes}원`
+
+    const out = movements
+        .filter(mov => mov < 0)
+        .reduce((acc, mov) => acc + mov, 0);
+    labelSumOut.textContent = `${out}원`
+
+}
+calcDisplaySummary(account1.movements);
+
 const createUsernames = function (accs) {
     accs.forEach(function (acc) {
         acc.username = acc.owner
@@ -97,7 +110,6 @@ const createUsernames = function (accs) {
 };
 
 createUsernames(accounts);
-
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -261,3 +273,14 @@ const calcAverageHumanAge = function (ages) {
     return average;
 }
 console.log(calcAverageHumanAge(dogAge1))
+
+console.log(movements);
+
+const totalDepositsUSD = movements
+    .filter(mov => mov > 0)
+    .map((mov, i, arr) => {
+        return mov * eurToUsd;
+    })
+    .reduce((acc, mov) => acc + mov, 0);
+
+console.log(totalDepositsUSD);
