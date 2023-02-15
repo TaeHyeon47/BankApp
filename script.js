@@ -123,14 +123,29 @@ const currencies = new Map([
 
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
-console.log(
-    '%c%s',
-    'background-color: #e0005a ; color: #ffffff ; font-weight: bold ; padding: 4px ;',
-    'script.js - (98) ~ dispalyMovements ~ movements: ' + movements
-);
+let currentAccount;
+
+btnLogin.addEventListener('click', function (e) {
+    e.preventDefault();
+    currentAccount = accounts.find(acc => acc.username === inputLoginUsername.value);
+    console.log(currentAccount);
+
+    if (currentAccount?.pin === Number(inputLoginPin.value)) {
+        // Display UI and message
+        labelWelcome.textContent = `Welcome back, ${currentAccount.owner.split(' ')[0]}`
+
+        // Display movements
+
+        // Display balance
+
+        // Display summary
+
+        console.log('LOGIN')
+    }
+
+})
 
 /////////////////////////////////////////////////
-
 // //* Array 기본 설명
 // //? remember that methods are simply functions that we can call on objects.
 // //? So basically, they are functions attached to objects.
@@ -284,3 +299,4 @@ const totalDepositsUSD = movements
     .reduce((acc, mov) => acc + mov, 0);
 
 console.log(totalDepositsUSD);
+
