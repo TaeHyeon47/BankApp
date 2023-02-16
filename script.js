@@ -86,12 +86,12 @@ const calcDisplayBalance = function (movements) {
 }
 calcDisplayBalance(account1.movements);
 
-const calcDisplaySummary = function (movements) {
-    const incomes = movements.filter(mov => mov > 0)
+const calcDisplaySummary = function (acc) {
+    const incomes = acc.movements.filter(mov => mov > 0)
         .reduce((acc, mov) => acc + mov, 0);
     labelSumIn.textContent = `${incomes}원`
 
-    const out = movements
+    const out = acc.movements
         .filter(mov => mov < 0)
         .reduce((acc, mov) => acc + mov, 0);
     labelSumOut.textContent = `${out}원`
@@ -133,14 +133,22 @@ btnLogin.addEventListener('click', function (e) {
     if (currentAccount?.pin === Number(inputLoginPin.value)) {
         // Display UI and message
         labelWelcome.textContent = `Welcome back, ${currentAccount.owner.split(' ')[0]}`
+        containerApp.style.opacity = 10;
+
+        // Clear input fields
+        inputLoginUsername.value = inputLoginPin.value = '';
+
+        inputLoginPin.blur();
 
         // Display movements
+        dispalyMovements(currentAccount.movements);
 
         // Display balance
+        calcDisplayBalance(currentAccount.movements);
 
         // Display summary
+        calcDisplaySummary(currentAccount);
 
-        console.log('LOGIN')
     }
 
 })
